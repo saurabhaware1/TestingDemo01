@@ -1,0 +1,75 @@
+<template>
+    <lightning-button label="Add Contact" onclick={handleClick} variant="brand"></lightning-button>
+    <template if:true={showInputTable}>
+      <table>
+        <thead> 
+          <tr> 
+            <th><label>First Name</label></th>
+            <th><label>Last Name</label></th>
+            <th><label>Email</label></th>
+            <th><label>Phone</label></th>
+            <th><label>Action</label></th>
+          </tr>
+        </thead>
+        <tbody>
+          <template for:each={contactListRows} for:item="clr" for:index="index"> 
+          <tr key={clr.Id} >
+            <td><lightning-input type="text" name="FirstName"  value={clr.FirstName} data-id={index} onchange={handleChange}></lightning-input></td>
+            <td><lightning-input  type="text" name="LastName"  value={clr.LastName} data-id={index} onchange={handleChange}></lightning-input></td>
+            <td><lightning-input  type="email" name="Email"  value={clr.Email} data-id={index} onchange={handleChange}></lightning-input></td>
+            <td><lightning-input  type="tel" name="Phone" value={clr.Phone} data-id={index} onchange={handleChange}></lightning-input></td>
+            <td data-id={clr.Id}>
+              <lightning-icon icon-name="utility:delete" data-id={clr.Id} variant="destructive"  value={index} alternative-text="Delete" onclick={handleDeleteRow}  title="Delete" ></lightning-icon> | 
+              <lightning-icon icon-name="utility:add" alternative-text="Add"  title="Add" onclick={handleaddRow} ></lightning-icon>
+            </td>
+          </tr>
+        </template>
+          <!-- Add more input fields as needed -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"><lightning-button variant="brand" label="Submit" onclick={handleSubmit}></lightning-button></td>
+          </tr>
+        </tfoot>
+      </table>
+    <!--<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>-->
+    </template>
+    <template if:true={contactList}>
+     <!-- <lightning-datatable
+              key-field="id"
+              data={contactList}
+              columns={columns}>
+      </lightning-datatable>-->
+      
+      <table>
+        <thead> 
+          <tr> 
+            <th><label>First Name</label></th>
+            <th><label>Last Name</label></th>
+            <th><label>Email</label></th>
+            <th><label>Phone</label></th>
+            <th><label>Action</label></th>
+          </tr>
+        </thead>
+        <tbody>
+          <template for:each = {contactList} for:item="crec" for:index="index">
+
+          <tr key={crec.Id}> 
+            <td> {crec.FirstName}   </td>
+            <td> {crec.LastName} </td>
+            <td> {crec.Email} </td>
+            <td> {crec.Phone}</td>
+            <td> 
+              <lightning-icon icon-name="utility:delete" variant="destructive"  data-id={crec.Id}  value={crec.Id} alternative-text="Delete" onclick={handleDeleteRecord}  title="Delete" ></lightning-icon> 
+              <lightning-icon icon-name="utility:edit" draft-values={fldsItemValues} data-id={crec.Id}  value={crec.Id} alternative-text="Edit" onclick={handlEdite}  title="Edit"  ></lightning-icon> 
+
+
+
+
+            </td>
+          </tr>
+        </template>
+        </tbody>
+      </table>
+      </template>
+  </template>

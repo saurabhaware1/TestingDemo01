@@ -1,0 +1,5 @@
+<apex:page standardController="Account" recordSetVar="records"  standardStylesheets="false" sidebar="false"  tabStyle="Account" extensions="MyLWCController">
+    <apex:includeLightning />
+    hii
+   
+</apex:page>

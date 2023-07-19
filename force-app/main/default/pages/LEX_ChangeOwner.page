@@ -1,0 +1,23 @@
+<apex:page standardController="Account" recordSetVar="Accounts" extensions="LEX_ChangeOwnerContainer" lightningStylesheets="true"
+           standardstylesheets="false" showHeader="false">
+    <apex:includeLightning />
+    
+    <script>
+    var selRecords = '{!setAccIds}';
+    
+    $Lightning.use("c:LEX_ChangeOwnerApp", function () {
+        $Lightning.createComponent("c:changeOwner",
+                                   {
+                                       accSelIds: selRecords == '' ? [] : selRecords.split(',')
+                                   },
+                                   "lightning",
+                                   function () {
+                                       // do some stuff 
+                                       
+                                   });
+    });
+    
+    
+    </script>
+    
+</apex:page>

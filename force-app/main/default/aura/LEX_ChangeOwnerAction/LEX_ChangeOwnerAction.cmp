@@ -1,0 +1,61 @@
+<aura:component controller="LEX_ChangeOwnerAction"
+                implements="forceCommunity:themeLayout,force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:actionOverride,force:lightningQuickActionWithoutHeader" 
+                access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="accSelIds" type="List" default="[]" />
+    <aura:attribute name="totalSelRecords" type="Integer" default="0" />
+    <aura:attribute name="isSendEmail" type="Boolean" default="false" />
+    <aura:attribute name="messageError" type="String" default="" />
+    <aura:attribute name="isError" type="Boolean" default="false" />
+    <aura:attribute name="loading" type="Boolean" default="false" />
+    
+    <!-- Create attribute to store lookup value as a sObject-->
+    <aura:attribute name="selectedLookUpRecord" type="sObject" default="{}" />
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open" style="height:max-content;">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Change Owner</h1>
+                <aura:if isTrue="{!v.isError}">
+                    <div class="msg">
+                        <ui:message severity="error" closable="true"> {!v.messageError} </ui:message>
+                    </div>
+                </aura:if>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <aura:if isTrue="{!not(empty(v.accSelIds))}">
+                    <div class="slds-p-around--x-small"> {! 'You have selected ' + v.totalSelRecords + ' record(s).'} </div>
+                    <div class="slds-p-around--x-small">
+                        <c:LEX_CustomLookup objectAPIName="User" IconName="standard:user" placeholder="Search Users..." selectedRecord="{!v.selectedLookUpRecord}" label="" />
+                    </div>
+                    <lightning:input type="checkbox" label="Send notification email" name="input1" class="slds-p-top_large slds-p-around--x-small" checked="{!v.isSendEmail}" />
+                    <div class="slds-form-element slds-p-top_large slds-p-around--x-small slds-hide">
+                        <div class="slds-form-element__control">
+                            <p>
+                                <b>The new owner</b> will also become the owner of these records related to that are owned by <b>the current record owner</b>.
+                            </p>
+                            <div class=" slds-p-around--x-small">
+                                <Ul class="custom-ul">
+                                    <li>Notes and attachments</li>
+                                    <li>Open activities</li>
+                                </Ul>
+                            </div>
+                        </div>
+                    </div>
+                </aura:if>
+            </div>
+            <div class="slds-modal__footer">
+                <lightning:button label="Cancel" onclick="{!c.goBack}" aura:id="btnCancel" />
+                <aura:if isTrue="{!not(empty(v.accSelIds))}">
+                    <lightning:button variant="brand" label="Submit" onclick="{!c.doChangeOwnerProcess}" aura:id="btnSubmit" />
+                </aura:if>
+            </div>
+        </div>
+        <aura:if isTrue="{!v.loading}">
+            <lightning:spinner variant="brand" size="large" class="slds-is-fixed"/>
+        </aura:if>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

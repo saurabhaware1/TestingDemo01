@@ -1,0 +1,7 @@
+.THIS .custom-ul{
+    list-style: circle !important;
+    margin-left: 1rem;
+}
+.THIS .slds-modal__content {
+    min-height: 300px;
+}

@@ -1,0 +1,28 @@
+/* Style for the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  /* Style for the input fields */
+  lightning-input {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style for the buttons */
+  lightning-button {
+    margin: 0 10px 10px 0;
+  }

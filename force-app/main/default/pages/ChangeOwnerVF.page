@@ -1,0 +1,21 @@
+<apex:page standardController="Account" recordSetVar="Accounts" extensions="ChangeOwner" lightningStylesheets="true"
+            standardstylesheets="false" showHeader="false">
+    <div id="lightning"></div>
+    <apex:includeLightning />
+   
+    <script>
+    var selRecords = '{!setAccIds}';
+    document.addEventListener('lightning__showtoast', event => {
+    sforce.one.showToast(event.toastAttributes);});
+
+    document.addEventListener('lightning__navigate', event => {
+    sforce.one.showToast(event.navigateAttributes);});
+
+    $Lightning.use("c:ChangeOwnerApp", function() {  
+        $Lightning.createComponent("c:ChangeOwner",
+        {
+        accSelIds: selRecords == '' ? [] : selRecords.split(',')
+        }, "lightning",function() {});
+    });
+    </script>
+</apex:page>
